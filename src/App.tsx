@@ -4,8 +4,6 @@ import ArticleListing from "./pages/ArticleListing";
 import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
 
-import "./App.css";
-
 function App() {
   return (
     <Router>

@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { Article } from "src/types/Article";
 import { listArticles } from "src/data/article";
 import { useHistory } from "react-router-dom";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 function ArticleListing() {
   const history = useHistory();
@@ -17,14 +22,22 @@ function ArticleListing() {
 
   return (
     <div>
-      <button onClick={() => history.push("/create-article")}>
+      <Button
+        variant="contained"
+        onClick={() => history.push("/create-article")}
+        sx={{ mb: 2 }}
+      >
         Create new article
-      </button>
-      <ul>
+      </Button>
+      <List>
         {articles.map((item, index) => (
-          <li key={index}>{item.title}</li>
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => history.push(`/article/${item.id}`)}>
+              <ListItemText primary={item.title} />
+            </ListItemButton>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 }

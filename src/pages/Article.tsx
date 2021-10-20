@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getArticle } from "src/data/article";
 import * as ArticleType from "src/types/Article";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 function Article() {
   const { id } = useParams<{ id: string }>();
@@ -38,29 +41,44 @@ function Article() {
 
   return (
     <div>
-      <button onClick={() => history.push(`/edit-article/${id}`)}>Edit</button>
-      <h1>{article.title}</h1>
-      <table>
-        <tbody>
-          <tr>
-            <th>Author</th>
-            <td>{article.author}</td>
-          </tr>
-          <tr>
-            <th>Created At</th>
-            <td>{article.createdAt}</td>
-          </tr>
-          <tr>
-            <th>Updated At</th>
-            <td>{article.updatedAt}</td>
-          </tr>
-          <tr>
-            <th>Tags</th>
-            <td>{article.tags}</td>
-          </tr>
-        </tbody>
-      </table>
+      <Typography variant="h3">{article.title}</Typography>
+      <Grid container spacing={2} sx={{ my: 4 }}>
+        <Grid item xs={6}>
+          Author
+        </Grid>
+        <Grid item xs={6}>
+          {article.author}
+        </Grid>
+        <Grid item xs={6}>
+          Created At
+        </Grid>
+        <Grid item xs={6}>
+          {article.createdAt}
+        </Grid>
+        <Grid item xs={6}>
+          Updated At
+        </Grid>
+        <Grid item xs={6}>
+          {article.updatedAt}
+        </Grid>
+        <Grid item xs={6}>
+          Tags
+        </Grid>
+        <Grid item xs={6}>
+          {article.tags}
+        </Grid>
+      </Grid>
+
       <p>{article.content}</p>
+
+      <Button
+        variant="contained"
+        onClick={() => history.push(`/edit-article/${id}`)}
+        fullWidth
+        sx={{ mt: 2 }}
+      >
+        Edit
+      </Button>
     </div>
   );
 }
