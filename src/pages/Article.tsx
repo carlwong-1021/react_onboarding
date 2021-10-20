@@ -16,10 +16,22 @@ function Article() {
   });
   const history = useHistory();
 
+  const processTime = (time: string) => {
+    if (!time) return "";
+    const newTime = new Date(time);
+    return newTime.toLocaleString();
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await getArticle(id);
-      if (result) setArticle(result);
+      if (result)
+        setArticle({
+          ...result,
+          tags: result.tags.join(),
+          createdAt: processTime(result.createdAt),
+          updatedAt: processTime(result.updatedAt),
+        });
     };
     fetchData();
   }, [id]);
@@ -28,9 +40,26 @@ function Article() {
     <div>
       <button onClick={() => history.push(`/edit-article/${id}`)}>Edit</button>
       <h1>{article.title}</h1>
-      {/* Your task: show date element, createdAt >= updatedAt ? createdAt : updatedAt */}
-      {/* Your task: add author element */}
-      {/* Your task: list tags element */}
+      <table>
+        <tbody>
+          <tr>
+            <th>Author</th>
+            <td>{article.author}</td>
+          </tr>
+          <tr>
+            <th>Created At</th>
+            <td>{article.createdAt}</td>
+          </tr>
+          <tr>
+            <th>Updated At</th>
+            <td>{article.updatedAt}</td>
+          </tr>
+          <tr>
+            <th>Tags</th>
+            <td>{article.tags}</td>
+          </tr>
+        </tbody>
+      </table>
       <p>{article.content}</p>
     </div>
   );

@@ -24,8 +24,10 @@ export async function createArticle(data: any) {
   return callAPI(() => axios.post("http://localhost:3000/api/articles", data));
 }
 
-export async function updateArticle(data: any) {
-  // write your code here
+export async function updateArticle(id: string, data: any) {
+  return callAPI(() =>
+    axios.put(`http://localhost:3000/api/articles/${id}`, data)
+  );
 }
 
 export async function removeArticle(id: string) {
